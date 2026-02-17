@@ -122,6 +122,7 @@ const LoginForm = () => {
                   "Entrar"
                 )}
               </Button>
+              {/** BOTAO DE FAZER LOGIN COM O GOOGLE */}
               <Button
                 variant="outline"
                 className="w-full"
