@@ -15,6 +15,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import AddPatientButton from "./_components/add-patient-button";
 import PatientCard from "./_components/patient-card";
+import { DataTable } from "@/components/ui/data-table";
+import { PatiensTableColumns } from "./_components/table-columns";
 
 const PatientsPage = async () => {
   const session = await auth.api.getSession({
@@ -47,12 +49,13 @@ const PatientsPage = async () => {
         </PageActions>
       </PageHeader>
       <PageContent>
-        <div className="text-muted-foreground text-sm">
+        {/* <div className="text-muted-foreground text-sm">
           Total de pacientes: {patients.length}
         </div>
         {patients.map((patient) => (
           <PatientCard key={patient.id} patient={patient} />
-        ))}
+        ))} */}
+        <DataTable data={patients} columns={PatiensTableColumns} />
       </PageContent>
     </PageContainer>
   );
