@@ -49,12 +49,6 @@ const PatientsPage = async () => {
         </PageActions>
       </PageHeader>
       <PageContent>
-        {/* <div className="text-muted-foreground text-sm">
-          Total de pacientes: {patients.length}
-        </div>
-        {patients.map((patient) => (
-          <PatientCard key={patient.id} patient={patient} />
-        ))} */}
         <DataTable data={patients} columns={PatiensTableColumns} />
       </PageContent>
     </PageContainer>

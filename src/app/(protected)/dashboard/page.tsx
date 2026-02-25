@@ -6,7 +6,19 @@ import { db } from "@/db";
 import { usersToClinicsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
-import SignOutButton from "./components/sign-out-button";
+import { DataTable } from "@/components/ui/data-table";
+import {
+  PageContainer,
+  PageHeader,
+  PageHeaderContent,
+  PageTitle,
+  PageDescription,
+  PageActions,
+  PageContent,
+} from "@/components/ui/page-container";
+import AddPatientButton from "../patients/_components/add-patient-button";
+import { PatiensTableColumns } from "../patients/_components/table-columns";
+import { DatePicker } from "./components/date-picker";
 
 const DashboardPage = async () => {
   const session = await auth.api.getSession({
@@ -22,12 +34,24 @@ const DashboardPage = async () => {
     redirect("/clinic-form");
   }
   return (
-    <div>
-      <h1>Dashboard</h1>
-      <h1>{session?.user?.name}</h1>
-      <h1>{session?.user?.email}</h1>
-      <SignOutButton />
-    </div>
+    <PageContainer>
+      <PageHeader>
+        <PageHeaderContent>
+          <PageTitle>Pacientes</PageTitle>
+          <PageDescription>
+            Acesse uma visão detalhada de todos os seus pacientes
+          </PageDescription>
+        </PageHeaderContent>
+        <PageActions>
+          {/* <AddPatientButton /> */}
+          <DatePicker />
+          <></>
+        </PageActions>
+      </PageHeader>
+      <PageContent>
+        <></>
+      </PageContent>
+    </PageContainer>
   );
 };
 

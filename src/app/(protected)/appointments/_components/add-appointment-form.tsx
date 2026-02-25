@@ -305,8 +305,8 @@ const AddAppointmentForm = ({
               <FormItem>
                 <FormLabel>Horário</FormLabel>
                 <Select
+                  value={field.value}
                   onValueChange={field.onChange}
-                  defaultValue={field.value}
                   disabled={!isDateTimeEnabled || !selectedDate}
                 >
                   <FormControl>
@@ -315,13 +315,13 @@ const AddAppointmentForm = ({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {availableTimes?.data?.map((time) => (
+                    {availableTimes?.data?.map((t) => (
                       <SelectItem
-                        key={time.value}
-                        value={time.value}
-                        disabled={!time.available}
+                        key={t.value}
+                        value={t.value}
+                        disabled={!t.available}
                       >
-                        {time.label} {!time.available && "(Indisponível)"}
+                        {t.label} {!t.available && "(Indisponível)"}
                       </SelectItem>
                     ))}
                   </SelectContent>
