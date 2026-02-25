@@ -17,7 +17,7 @@ import { appointmentsTable, doctorsTable, patientsTable } from "@/db/schema";
 import { auth } from "@/lib/auth";
 
 import AddAppointmentButton from "./_components/add-appointment-button";
-// import { appointmentsTableColumns } from "./_components/table-columns";
+import { appointmentsTableColumns } from "./_components/table-columns";
 
 const AppointmentsPage = async () => {
   const session = await auth.api.getSession({
@@ -60,10 +60,7 @@ const AppointmentsPage = async () => {
         </PageActions>
       </PageHeader>
       <PageContent>
-        {/* <DataTable data={appointments} columns={appointmentsTableColumns} /> */}
-        <div className="text-muted-foreground text-sm">
-          Total de agendamentos: {appointments.length}
-        </div>
+        <DataTable data={appointments} columns={appointmentsTableColumns} />
       </PageContent>
     </PageContainer>
   );
