@@ -26,6 +26,12 @@ import StatsCards from "./components/stats-cards";
 import dayjs from "dayjs";
 import { getDashboard } from "@/data/get-dashboard";
 import AppointmentsChart from "./components/revenue-charts";
+import TopDoctors from "./components/top-doctors";
+import TopSpecialties from "./components/top-specialties";
+import { Calendar, Car } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { appointmentsTableColumns } from "../appointments/_components/table-columns";
+import { DataTable } from "@/components/ui/data-table";
 
 interface DashboardPageProps {
   searchParams: Promise<{
@@ -99,8 +105,29 @@ const DashboardPage = async ({ searchParams }: DashboardPageProps) => {
           totalPatients={totalPatients.total}
           totalDoctors={totalDoctors.total}
         />
-        <div className="grid grid-cols-[2.25fr_1fr]">
+        <div className="grid grid-cols-[2.25fr_1fr] gap-4">
           <AppointmentsChart dailyAppointmentsData={dailyAppointmentsData} />
+          <TopDoctors doctors={topDoctors} />
+        </div>
+        <div className="grid grid-cols-[2.25fr_1fr] gap-4">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center gap-3">
+                <Calendar className="text-muted-foreground" />
+                <CardTitle className="text-base">
+                  Agendamentos de hoje
+                </CardTitle>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <DataTable
+                columns={appointmentsTableColumns}
+                data={todayAppointments}
+              />
+              <></>
+            </CardContent>
+          </Card>
+          <TopSpecialties topSpecialties={topSpecialties} />
         </div>
       </PageContent>
     </PageContainer>
