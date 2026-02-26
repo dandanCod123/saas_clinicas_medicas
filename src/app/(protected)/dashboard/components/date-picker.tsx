@@ -1,23 +1,24 @@
 "use client";
 
+import { addMonths, format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { parseAsIsoDate, useQueryState } from "nuqs";
 import * as React from "react";
+import { DateRange } from "react-day-picker";
+
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
-import { parseAsIsoDate, useQueryState } from "nuqs";
-import { Field, FieldLabel } from "@/components/ui/field";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { addDays, addMonths, format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
-import { type DateRange } from "react-day-picker";
-import { ptBR } from "date-fns/locale";
-import { useQueries } from "@tanstack/react-query";
-import { parseInputData } from "better-auth/db";
+import { cn } from "@/lib/utils";
 
-export function DatePicker() {
+export function DatePicker({
+  className,
+}: React.HTMLAttributes<HTMLDivElement>) {
   const [from, setFrom] = useQueryState(
     "from",
     parseAsIsoDate.withDefault(new Date()),
@@ -42,23 +43,29 @@ export function DatePicker() {
     from,
     to,
   };
-
   return (
-    <Field className="mx-auto w-60">
-      {/* <FieldLabel htmlFor="date-picker-range">Date Picker Range</FieldLabel> */}
+    <div className={cn("grid gap-2", className)}>
       <Popover>
         <PopoverTrigger asChild>
           <Button
-            variant="outline"
-            id="date-picker-range"
-            className="justify-start px-2.5 font-normal"
+            id="date"
+            variant={"outline"}
+            className={cn(
+              "justify-start text-left font-normal",
+              !date && "text-muted-foreground",
+            )}
           >
             <CalendarIcon />
             {date?.from ? (
               date.to ? (
                 <>
-                  {format(date.from, "LLL dd, y", { locale: ptBR })} -{" "}
-                  {format(date.to, "LLL dd, y", { locale: ptBR })}
+                  {format(date.from, "LLL dd, y", {
+                    locale: ptBR,
+                  })}{" "}
+                  -{" "}
+                  {format(date.to, "LLL dd, y", {
+                    locale: ptBR,
+                  })}
                 </>
               ) : (
                 format(date.from, "LLL dd, y")
@@ -70,6 +77,7 @@ export function DatePicker() {
         </PopoverTrigger>
         <PopoverContent className="w-auto p-0" align="start">
           <Calendar
+            initialFocus
             mode="range"
             defaultMonth={date?.from}
             selected={date}
@@ -79,6 +87,6 @@ export function DatePicker() {
           />
         </PopoverContent>
       </Popover>
-    </Field>
+    </div>
   );
 }
